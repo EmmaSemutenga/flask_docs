@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, escape, url_for, make_response, jsonify, session, redirect, flash
-
+from forms import RegistrationForm, LoginForm
 app = Flask(__name__)
 app.secret_key = "find yours"
 
@@ -47,13 +47,27 @@ def japi():
         "height" : "10fts"
     })
 
-@app.route('/login')
-def login():
-    if request.method == "POST":
-        session['username'] = request.form["username"]
-        return redirect(url_for('index'))
+# @app.route('/login')
+# def login():
+#     if request.method == "POST":
+#         session['username'] = request.form["username"]
+#         return redirect(url_for('index'))
 
 @app.route('/logout')
 def logout():
     session.pop('username', None)
     return redirect(url_for('index'))
+
+#---------------------------------------
+@app.route('/signup', methods=['POST','GET'])
+def signup():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        flash(f"Horray you got an account now: {form.username.data}!", "success")
+        return redirect(url_for('login'))
+    return render_template("register.html", form=form)
+
+@app.route('/login', methods=['POST','GET'])
+def login():
+    form = LoginForm()
+    return render_template("login.html", form=form)
