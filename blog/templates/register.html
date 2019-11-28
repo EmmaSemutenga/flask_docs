@@ -1,8 +1,9 @@
 {% extends "base.html"%}
 {% block content %} 
-        <h1 class="center-align">Register</h1>
+        <h1 class="text-center">{{ title }}</h1>
         <div class="row">
                 <form class="col s12" action="" method="post" novalidate>
+                        {{ form.hidden_tag() }}
                   <div class="row">
                     <div class="input-field col s6">
                             {{ form.username.label }}

@@ -1,0 +1,57 @@
+{% extends "base.html"%}
+{% block content %} 
+                <h1 class="text-center">{{ title }}</h1>
+       
+                <div class="card-panel grey lighten-5 z-depth-1">
+                  <div class="row valign-wrapper">
+                    <div class="col s2">
+                      <img src="{{ url_for('static', filename="profile_pics/" + current_user.image_file) }}" alt="" class="circle responsive-img"> <!-- notice the "circle" class -->
+                    </div>
+                    <div class="col s10">
+                      <span class="black-text">
+                        {{current_user.username}}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+        
+        
+        <h1 class="center-align">Update Account Info</h1>
+        <div class="row">
+                <form class="col s12" action="" method="post" enctype="multipart/form-data" novalidate>
+                        {{ form.hidden_tag() }}
+                  <div class="row">
+                    <div class="input-field col s6">
+                            {{ form.username.label }}
+                            {{ form.username }} 
+                            {% if form.username.errors %}
+                                {% for error in form.username.errors %}
+                                    <div class="red-text text-lighten-2">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                    </div>
+                    <div class="input-field col s6">
+                            {{ form.email.label }}
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                {% for error in form.email.errors %}
+                                    <div class="red-text text-lighten-2">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                    </div>
+                    <div class="file-field input-field col s6">
+                        <div class="btn">
+                                <span>{{ form.picture.label }}</span>
+                                {{ form.picture }}
+                              </div>
+                        {% if form.picture.errors %}
+                            {% for error in form.picture.errors %}
+                                <div class="red-text text-lighten-2">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>                
+                   {{ form.submit(class="waves-effect waves-light btn") }}
+                  </div>    
+                </form>
+              </div>
+{% endblock content %}

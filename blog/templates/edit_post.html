@@ -1,0 +1,30 @@
+{% extends "base.html"%}
+{% block content %} 
+        <h1 class="text-center">{{ title }}</h1>
+        <div class="row">
+                <form class="col s12" action="" method="post" novalidate>
+                    {{ form.hidden_tag() }}
+                  <div class="row">
+                    <div class="input-field col s6">
+                            {{ form.title.label }}
+                            {{ form.title }}
+                            {% if form.title.errors %}
+                                {% for error in form.title.errors %}
+                                    <div class="red-text text-lighten-2">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                    </div>
+                    <div class="input-field col s6">
+                            {{ form.content.label }}
+                            {{ form.content(class="materialize-textarea") }}
+                            {% if form.content.errors %}
+                                {% for error in form.content.errors %}
+                                    <div class="red-text text-lighten-2">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                    </div>
+                   {{ form.submit(class="waves-effect waves-light btn") }}
+                  </div>    
+                </form>
+              </div>
+{% endblock content %}
